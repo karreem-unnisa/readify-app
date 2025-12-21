@@ -8,11 +8,10 @@ import profileRoutes from "./routes/profileRoutes.js";
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://readify-app.vercel.app"],
   credentials: true
 }));
 
-app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/articles", articleRoutes);
