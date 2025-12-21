@@ -8,3 +8,4 @@ export const getNotes = (articleId) =>
 
 export const deleteNote = (id) =>
   axiosClient.delete(`/notes/${id}`);
+

@@ -8,3 +8,4 @@ export const getHighlights = (articleId) =>
 
 export const deleteHighlight = (id) =>
   axiosClient.delete(`/highlights/${id}`);
+
