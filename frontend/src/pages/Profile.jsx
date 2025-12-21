@@ -8,9 +8,10 @@ function Profile() {
   const [showPwUI, setShowPwUI] = useState(false);
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
   const [status, setStatus] = useState("");
 
-  // NEW STATES
   const [articles, setArticles] = useState(0);
   const [highlights, setHighlights] = useState(0);
   const [notes, setNotes] = useState(0);
@@ -21,16 +22,13 @@ function Profile() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      // Get user info
       const res = await axiosClient.get("/auth/me");
       setUser(res.data);
 
-      // Fetch article list
       const artRes = await axiosClient.get("/articles");
       const articleData = artRes.data;
       setArticles(articleData.length);
 
-      // Highlight + note calculation
       let hlCount = 0;
       let ntCount = 0;
 
@@ -60,6 +58,9 @@ function Profile() {
       setStatus("Password updated successfully!");
       setOldPw("");
       setNewPw("");
+      setShowOld(false);
+      setShowNew(false);
+
     } catch (e) {
       setStatus("Incorrect password");
     }
@@ -106,7 +107,6 @@ function Profile() {
         </div>
 
         <hr style={line}/>
-
         <h3 style={label}>Reading Stats</h3>
 
         <p><b>Total Articles Read:</b> {articles}</p>
@@ -125,23 +125,43 @@ function Profile() {
         )}
 
         {showPwUI && (
-          <div style={{ marginTop: "20px"}}>
+          <div style={{ marginTop:"20px" }}>
 
-            <input
-              type="password"
-              placeholder="Old password"
-              value={oldPw}
-              onChange={(e) => setOldPw(e.target.value)}
-              style={input}
-            />
+            {/* old password */}
+            <div style={{ position:"relative" }}>
+              <input
+                type={showOld ? "text" : "password"}
+                placeholder="Old password"
+                value={oldPw}
+                onChange={(e) => setOldPw(e.target.value)}
+                style={input}
+              />
 
-            <input
-              type="password"
-              placeholder="New password"
-              value={newPw}
-              onChange={(e) => setNewPw(e.target.value)}
-              style={input}
-            />
+              <span
+                onClick={() => setShowOld(!showOld)}
+                style={showStyle}
+              >
+                {showOld ? "Hide" : "Show"}
+              </span>
+            </div>
+
+            {/* new password */}
+            <div style={{ position:"relative" }}>
+              <input
+                type={showNew ? "text" : "password"}
+                placeholder="New password"
+                value={newPw}
+                onChange={(e) => setNewPw(e.target.value)}
+                style={input}
+              />
+
+              <span
+                onClick={() => setShowNew(!showNew)}
+                style={showStyle}
+              >
+                {showNew ? "Hide" : "Show"}
+              </span>
+            </div>
 
             <button
               style={updateBtn}
@@ -157,14 +177,17 @@ function Profile() {
                 setOldPw("");
                 setNewPw("");
                 setStatus("");
+                setShowOld(false);
+                setShowNew(false);
               }}
             >
               Cancel
             </button>
 
-            <p style={{ color: "green", marginTop: "8px", fontSize:"15px" }}>
+            <p style={{ color:"green", marginTop:"8px", fontSize:"15px" }}>
               {status}
             </p>
+
           </div>
         )}
 
@@ -184,7 +207,19 @@ function Profile() {
 export default Profile;
 
 
+
 // ---------- UI STYLES ----------
+
+const showStyle = {
+  position:"absolute",
+  top:"50%",
+  right:"14px",
+  transform:"translateY(-50%)",
+  cursor:"pointer",
+  fontSize:"14px",
+  color:"#333",
+  userSelect:"none"
+};
 
 const line = {
   borderColor: "rgba(0,0,0,0.2)",
@@ -215,7 +250,7 @@ const changeBtn = {
   background: "dodgerblue",
   border: "none",
   fontSize: "17px",
-  cursor: "pointer",
+  cursor:"pointer",
   color:"white"
 };
 

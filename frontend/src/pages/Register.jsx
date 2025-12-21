@@ -7,6 +7,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const [status, setStatus] = useState("");
 
   const navigate = useNavigate();
@@ -49,26 +50,35 @@ function Register() {
             onChange={(e)=>setEmail(e.target.value)}
           />
 
-          <input
-            style={input}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-          />
+          {/* password + toggle */}
+          <div style={{ position:"relative" }}>
+            <input
+              style={input}
+              type={showPw ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
+            />
+
+            <span
+              onClick={() => setShowPw(!showPw)}
+              style={toggleText}
+            >
+              {showPw ? "Hide" : "Show"}
+            </span>
+          </div>
 
           <button type="submit" style={button}>
             Create Account
           </button>
+
         </form>
 
         <p style={msg}>{status}</p>
 
         <p style={switchText}>
-          Already have an account?{" "}
-          <Link to="/login" style={switchLink}>
-            Login
-          </Link>
+          Already have an account?
+          <Link to="/login" style={switchLink}> Login </Link>
         </p>
 
       </div>
@@ -121,6 +131,17 @@ const input = {
   marginBottom: "14px"
 };
 
+const toggleText = {
+  position:"absolute",
+  top:"50%",
+  right:"14px",
+  transform:"translateY(-50%)",
+  cursor:"pointer",
+  fontSize:"14px",
+  color:"#333",
+  userSelect:"none"
+};
+
 const button = {
   width: "100%",
   padding: "14px",
@@ -149,6 +170,7 @@ const switchText = {
 
 const switchLink = {
   color: "#4abaff",
-  textDecoration: "underline",
+  textDecoration: "none",
   cursor: "pointer"
 };
+
