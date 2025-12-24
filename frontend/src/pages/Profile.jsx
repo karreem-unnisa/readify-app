@@ -127,7 +127,7 @@ function Profile() {
         {showPwUI && (
           <div style={{ marginTop:"20px" }}>
 
-            {/* old password */}
+
             <div style={{ position:"relative" }}>
               <input
                 type={showOld ? "text" : "password"}
@@ -145,7 +145,6 @@ function Profile() {
               </span>
             </div>
 
-            {/* new password */}
             <div style={{ position:"relative" }}>
               <input
                 type={showNew ? "text" : "password"}
@@ -207,8 +206,6 @@ function Profile() {
 export default Profile;
 
 
-
-// ---------- UI STYLES ----------
 
 const showStyle = {
   position:"absolute",

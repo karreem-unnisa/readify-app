@@ -50,7 +50,6 @@ function Register() {
             onChange={(e)=>setEmail(e.target.value)}
           />
 
-          {/* password + toggle */}
           <div style={{ position:"relative" }}>
             <input
               style={input}
@@ -89,8 +88,6 @@ function Register() {
 
 export default Register;
 
-
-/* ------------ STYLES ---------------- */
 
 const wrapper = {
   minHeight: "90vh",

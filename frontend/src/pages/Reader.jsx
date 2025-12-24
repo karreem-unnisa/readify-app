@@ -34,7 +34,7 @@ function Reader() {
   const [noteFor, setNoteFor] = useState(null);
 
 
-  // LOAD
+
   useEffect(() => {
     async function load() {
 
@@ -51,7 +51,6 @@ function Reader() {
   }, [id]);
 
 
-  // REPAINT HIGHLIGHTS
   useEffect(() => {
 
     if (!readerRef.current || !article) return;
@@ -83,7 +82,6 @@ function Reader() {
   }, [highlights, article]);
 
 
-  // SAVE HIGHLIGHT
   const save = async () => {
 
     await addHighlight({
@@ -104,7 +102,6 @@ function Reader() {
   };
 
 
-  // SCROLL
   const scrollTo = (h) => {
 
     const mark = readerRef.current.querySelector(
@@ -122,8 +119,6 @@ function Reader() {
     setTimeout(() => (mark.style.outline = ""), 800);
   };
 
-
-  // DELETE HIGHLIGHT
   const remove = async (hid) => {
 
     await deleteHighlight(hid);
@@ -136,7 +131,6 @@ function Reader() {
   };
 
 
-  // ON SELECT
   const select = () => {
 
     const sel = window.getSelection();
@@ -171,7 +165,6 @@ function Reader() {
   };
 
 
-  // SAVE NOTE
   const saveNote = async () => {
     await addNote({
       articleId: article._id,
@@ -186,7 +179,6 @@ function Reader() {
     setNoteFor(null);
   };
 
-  // DELETE NOTE
   const removeNote = async (nid) => {
 
     await deleteNote(nid);
@@ -196,7 +188,6 @@ function Reader() {
   };
 
 
-  // EXPORT PDF
   const exportPDF = () => {
 
   const doc = new jsPDF("p", "pt", "a4");
@@ -205,32 +196,29 @@ function Reader() {
   const pageWidth = doc.internal.pageSize.getWidth() - margin * 2;
   let y = 60;
 
-  // Title
   doc.setFontSize(22);
   doc.text(article.title, margin, y);
   y += 40;
 
-  // Date
+
   doc.setFontSize(12);
   doc.text("Export Date: " + new Date().toLocaleDateString(), margin, y);
   y += 30;
 
-  // loop highlights
   highlights.forEach((h, i) => {
 
-    // ---------- PAGE BREAK CHECK ----------
+
     if (y > 770) {
       doc.addPage();
       y = 60;
     }
 
-    // Highlight head
+ 
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.text(`Highlight ${i + 1}:`, margin, y);
     y += 18;
 
-    // highlight body
     doc.setFontSize(11);
     doc.setFont("helvetica", "normal");
 
@@ -238,7 +226,7 @@ function Reader() {
     doc.text(lines, margin, y);
     y += lines.length * 14 + 6;
 
-    // notes
+
     const linkedNotes = notes.filter(n => n.highlightId === h._id);
 
     if (linkedNotes.length > 0) {
@@ -269,16 +257,12 @@ function Reader() {
   doc.save(article.title + "_highlights.pdf");
 };
 
-
-
-
   if (!article) return <p>Loading...</p>;
 
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
 
-      {/* ARTICLE */}
       <div
         ref={readerRef}
         onMouseUp={select}
@@ -291,8 +275,6 @@ function Reader() {
         }}
       ></div>
 
-
-      {/* SIDEBAR */}
       <div
         style={{
           flex: 1,
@@ -302,7 +284,6 @@ function Reader() {
         }}
       >
 
-        {/* search */}
         <input
           placeholder="Search highlight…"
           value={query}
@@ -316,7 +297,6 @@ function Reader() {
           }}
         />
 
-        {/* export */}
         <button
           onClick={exportPDF}
           style={{
@@ -372,7 +352,6 @@ function Reader() {
               </button>
 
 
-              {/* notes */}
               {notes
                 .filter(n => n.highlightId === h._id)
                 .map(n => (
@@ -432,7 +411,6 @@ function Reader() {
           ))}
 
 
-        {/* NOTE TEXTAREA */}
         {noteFor && (
           <div style={{ marginTop: "20px" }}>
 

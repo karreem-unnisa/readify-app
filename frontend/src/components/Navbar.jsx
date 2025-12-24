@@ -19,15 +19,11 @@ function Navbar() {
     <header style={header}>
       <nav style={nav}>
 
-        {/* brand */}
         <Link to="/" style={brand}>Readify</Link>
 
-        {/* Desktop */}
         {!mobile && (
           <div style={linksRow}>
             <NavItem to="/">Home</NavItem>
-
-            {/* Library always visible */}
             <NavItem to="/articles">Library</NavItem>
 
             {isLogged && <NavItem to="/dashboard">My Articles</NavItem>}
@@ -37,21 +33,16 @@ function Navbar() {
             {!isLogged && <NavItem to="/register">Register</NavItem>}
           </div>
         )}
-
-        {/* Hamburger */}
         {mobile && (
           <div style={hamburger} onClick={() => setOpen(!open)}>☰</div>
         )}
 
       </nav>
-
-      {/* Mobile menu */}
       {mobile && open && (
         <div style={mobileMenu}>
 
           <NavMobile setOpen={setOpen} to="/">Home</NavMobile>
 
-          {/* library always */}
           <NavMobile setOpen={setOpen} to="/articles">Library</NavMobile>
 
           {isLogged && (
@@ -97,7 +88,6 @@ function NavMobile({ to, setOpen, children }) {
 
 export default Navbar;
 
-/* -------- styles ---------- */
 
 const header = {
   width: "100%",

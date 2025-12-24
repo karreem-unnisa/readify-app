@@ -15,7 +15,6 @@ function Home() {
       }}
     >
 
-      {/* text */}
       <div>
         <h1 style={{
           color: "black",
@@ -59,7 +58,7 @@ function Home() {
         </Link>
       </div>
 
-      {/* image */}
+  
       <div style={{ textAlign: "right" }}>
         <img
          src={heroImg}

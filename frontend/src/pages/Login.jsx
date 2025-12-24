@@ -43,7 +43,6 @@ function Login() {
           style={input}
         />
 
-        {/* Password + toggle */}
         <div style={{ position:"relative" }}>
 
           <input
@@ -80,7 +79,6 @@ function Login() {
 export default Login;
 
 
-/* ----------------- STYLES ----------------- */
 
 const wrapper = {
   width: "430px",
